@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>枫雪阁 — 燕云十六声 | 百业同游，枫雪为盟</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&family=Noto+Serif+SC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🍁</text></svg>">
+</head>
+<body>
+
+    <!-- 全局粒子 -->
+    <canvas id="globalParticles" class="global-particles"></canvas>
+
+    <!-- 顶部导航 -->
+    <header class="header" id="header">
+        <div class="header-inner">
+            <a href="#home" class="brand">
+                <div class="brand-logo">
+                    <svg viewBox="0 0 48 48" class="logo-svg">
+                        <defs>
+                            <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#D4A574"/>
+                                <stop offset="100%" stop-color="#C9A96E"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- 枫叶轮廓 -->
+                        <path d="M24 4 L28 16 L40 14 L32 22 L38 34 L24 26 L10 34 L16 22 L8 14 L20 16 Z"
+                              fill="none" stroke="url(#logoGrad)" stroke-width="1.5"
+                              stroke-linejoin="round"/>
+                        <!-- 雪花 -->
+                        <circle cx="24" cy="18" r="2" fill="url(#logoGrad)"/>
+                        <line x1="24" y1="10" x2="24" y2="14" stroke="url(#logoGrad)" stroke-width="0.8"/>
+                        <line x1="24" y1="22" x2="24" y2="26" stroke="url(#logoGrad)" stroke-width="0.8"/>
+                        <line x1="16" y1="18" x2="20" y2="18" stroke="url(#logoGrad)" stroke-width="0.8"/>
+                        <line x1="28" y1="18" x2="32" y2="18" stroke="url(#logoGrad)" stroke-width="0.8"/>
+                        <line x1="16.9" y1="10.9" x2="19.7" y2="13.7" stroke="url(#logoGrad)" stroke-width="0.8"/>
+                        <line x1="28.3" y1="22.3" x2="31.1" y2="25.1" stroke="url(#logoGrad)" stroke-width="0.8"/>
+                        <line x1="16.9" y1="25.1" x2="19.7" y2="22.3" stroke="url(#logoGrad)" stroke-width="0.8"/>
+                        <line x1="28.3" y1="13.7" x2="31.1" y2="10.9" stroke="url(#logoGrad)" stroke-width="0.8"/>
+                    </svg>
+                </div>
+                <span class="brand-name">枫雪阁</span>
+            </a>
+            <nav class="nav" id="nav">
+                <a href="#home" class="nav-item active">首页</a>
+                <a href="#about" class="nav-item">百业简介</a>
+                <a href="#leaders" class="nav-item">掌事</a>
+                <a href="#members" class="nav-item">阁中同袍</a>
+                <a href="#timeline" class="nav-item">江湖记事</a>
+                <a href="#join" class="nav-item">入阁</a>
+                <a href="https://www.yysls.cn/" target="_blank" class="nav-item nav-external">燕云官网 ↗</a>
+            </nav>
+            <button class="menu-btn" id="menuBtn" aria-label="菜单">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== 首页 Hero ===== -->
+    <section class="hero" id="home">
+        <canvas id="snowCanvas" class="hero-canvas"></canvas>
+        <div class="hero-overlay"></div>
+
+        <!-- 左侧装饰 -->
+        <div class="hero-ornament left">
+            <div class="ornament-line"></div>
+            <div class="ornament-diamond"></div>
+            <div class="ornament-line"></div>
+        </div>
+
+        <div class="hero-main">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                燕云十六声 · 百业
+                <span class="badge-dot"></span>
+            </div>
+            <h1 class="hero-title">
+                <span class="title-char">枫</span>
+                <span class="title-char">雪</span>
+                <span class="title-char">阁</span>
+            </h1>
+            <p class="hero-sub">枫染山河色，雪映故人归</p>
+            <p class="hero-desc">以枫为契，以雪为盟。在这片江湖中，寻一隅归处，共赴山河万里。</p>
+            <div class="hero-actions">
+                <a href="#join" class="btn-gold">入 阁</a>
+                <a href="#about" class="btn-ghost">探 阁</a>
+            </div>
+        </div>
+
+        <!-- 右侧装饰 -->
+        <div class="hero-ornament right">
+            <div class="ornament-line"></div>
+            <div class="ornament-diamond"></div>
+            <div class="ornament-line"></div>
+        </div>
+
+        <!-- 山峦剪影 -->
+        <div class="hero-mountains">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                <path d="M0 80 L80 50 L160 65 L260 35 L360 55 L480 20 L580 45 L680 25 L800 50 L920 30 L1040 55 L1160 25 L1280 45 L1400 20 L1440 35 L1440 120 L0 120Z" fill="rgba(26, 20, 16, 0.5)"/>
+                <path d="M0 100 L120 75 L220 90 L340 65 L460 80 L560 55 L680 75 L780 60 L900 80 L1020 60 L1120 75 L1240 55 L1360 70 L1440 55 L1440 120 L0 120Z" fill="rgba(26, 20, 16, 0.7)"/>
+            </svg>
+        </div>
+
+        <!-- 底部引导 -->
+        <div class="hero-scroll">
+            <span>拂袖下览</span>
+            <svg width="20" height="20" viewBox="0 0 20 20"><path d="M10 3v14M5 12l5 5 5-5" stroke="currentColor" fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+    </section>
+
+    <!-- ===== 百业简介 ===== -->
+    <section class="about section" id="about">
+        <div class="section-bg-pattern"></div>
+        <div class="section-watermark" style="top: 40px; right: 3%;">阁</div>
+        <div class="container">
+            <div class="section-head">
+                <span class="section-label">— 百 业 简 介 —</span>
+                <h2 class="section-title">枫 雪 阁</h2>
+                <div class="title-rule"></div>
+                <p class="section-lead">
+                    立于燕云十六声江湖之中，枫雪阁以「同游山河，共赴江湖」为念。<br>
+                    不问来处，不较高低，只愿与志同道合者，一同闯荡这偌大江湖。
+                </p>
+            </div>
+
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon-wrap">
+                        <svg viewBox="0 0 48 48" class="feature-icon"><path d="M24 4C13 4 4 13 4 24s9 20 20 20 20-9 20-20S35 4 24 4zm0 4c8.8 0 16 7.2 16 16s-7.2 16-16 16S8 32.8 8 24 15.2 8 24 8zm-2 6v10l-8 4.6 2 3.4 10-5.8V14h-4z" fill="currentColor"/></svg>
+                    </div>
+                    <h3>江湖共游</h3>
+                    <p>组队下本、开荒探索，百业同袍随时相伴，让每一次冒险都有人并肩。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrap">
+                        <svg viewBox="0 0 48 48" class="feature-icon"><path d="M24 2L6 12v16c0 10.5 7.7 20.3 18 22.8C34.3 48.3 42 38.5 42 28V12L24 2zm0 4.4l14 8v13.6c0 8.5-6.3 16.6-14 18.6-7.7-2-14-10.1-14-18.6V14.4l14-8zM22 14h4v12h-4zm0 16h4v4h-4z" fill="currentColor"/></svg>
+                    </div>
+                    <h3>护阁同心</h3>
+                    <p>百业战中携手并肩，枫雪阁以团结为盾，护每一位阁中同袍周全。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrap">
+                        <svg viewBox="0 0 48 48" class="feature-icon"><path d="M24 4C13 4 4 13 4 24s9 20 20 20 20-9 20-20S35 4 24 4zm0 4c3.3 0 6.4 1 9 2.7L14.7 29C13 26.4 12 23.3 12 20c0-6.6 5.4-12 12-12zm0 32c-3.3 0-6.4-1-9-2.7l18.3-18.3C35 21.6 36 24.7 36 28c0 6.6-5.4 12-12 12z" fill="currentColor"/></svg>
+                    </div>
+                    <h3>雅集清谈</h3>
+                    <p>闲暇之余，围坐品茗、赏景论道，在刀光剑影之外，亦有诗意栖居。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 枫雪宣言 ===== -->
+    <section class="declaration section" id="declaration">
+        <div class="container">
+            <div class="declaration-frame">
+                <div class="declaration-ornament top">
+                    <svg viewBox="0 0 120 12" width="120" height="12">
+                        <path d="M0 6 L10 0 L20 6 L30 0 L40 6 L50 0 L60 6 L70 0 L80 6 L90 0 L100 6 L110 0 L120 6" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                    </svg>
+                </div>
+                <div class="declaration-content">
+                    <p class="declaration-text">「 江湖非远，枫雪可期。<br>以诚聚友，以心护阁。<br>不问前路几何，只求同游无悔。 」</p>
+                </div>
+                <div class="declaration-ornament bottom">
+                    <svg viewBox="0 0 120 12" width="120" height="12">
+                        <path d="M0 6 L10 0 L20 6 L30 0 L40 6 L50 0 L60 6 L70 0 L80 6 L90 0 L100 6 L110 0 L120 6" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 段间分隔 -->
+    <div class="section-divider">
+        <div class="divider-ornament">
+            <span class="divider-line"></span>
+            <span class="divider-diamond">◆</span>
+            <span class="divider-line"></span>
+        </div>
+    </div>
+
+    <!-- ===== 掌事 ===== -->
+    <section class="leaders section" id="leaders">
+        <div class="section-watermark" style="top: -30px; right: 5%;">雪</div>
+        <div class="section-watermark" style="bottom: 0; left: 5%;">枫</div>
+        <div class="container">
+            <div class="section-head">
+                <span class="section-label">— 掌 事 —</span>
+                <h2 class="section-title">阁 主</h2>
+                <div class="title-rule"></div>
+            </div>
+            <div class="leaders-grid">
+                <div class="leader-card main-leader">
+                    <div class="leader-card-bg"></div>
+                    <div class="leader-frame">
+                        <div class="leader-avatar">
+                            <div class="avatar-placeholder">步</div>
+                        </div>
+                        <div class="leader-glow"></div>
+                    </div>
+                    <div class="leader-info">
+                        <span class="leader-role">社 长</span>
+                        <h3 class="leader-name">步 苍</h3>
+                        <p class="leader-motto">「枫雪为盟，山河共赴」</p>
+                        <div class="leader-bio">
+                            <p>枫雪阁创立者，为人豪迈仗义。擅使长枪，精于百业战术指挥。常言「江湖之大，得一知己足矣」，以赤诚之心凝聚百业同袍，率枫雪阁征战四方。</p>
+                        </div>
+                        <div class="leader-tags">
+                            <span>指挥若定</span><span>豪迈仗义</span><span>长枪如龙</span>
+                        </div>
+                        <div class="leader-seal">阁主</div>
+                    </div>
+                </div>
+                <div class="leader-card">
+                    <div class="leader-card-bg"></div>
+                    <div class="leader-frame">
+                        <div class="leader-avatar sub">
+                            <div class="avatar-placeholder">江</div>
+                        </div>
+                        <div class="leader-glow sub"></div>
+                    </div>
+                    <div class="leader-info">
+                        <span class="leader-role">副 社</span>
+                        <h3 class="leader-name">江珞妍</h3>
+                        <p class="leader-motto">「一剑霜寒，护我枫雪」</p>
+                        <div class="leader-bio">
+                            <p>阁中砥柱，温婉其外、锋芒其内。剑术超群，尤擅双剑疾袭。负责阁中日常事务与新成员接引，待人如春风化雨，是枫雪阁不可或缺的守护者。</p>
+                        </div>
+                        <div class="leader-tags">
+                            <span>剑术超群</span><span>温润如玉</span><span>阁务总管</span>
+                        </div>
+                        <div class="leader-seal">副阁</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 段间分隔 -->
+    <div class="section-divider">
+        <div class="divider-ornament">
+            <span class="divider-line"></span>
+            <span class="divider-diamond">◇</span>
+            <span class="divider-line"></span>
+        </div>
+    </div>
+
+    <!-- ===== 阁中同袍 ===== -->
+    <section class="members section" id="members">
+        <div class="section-bg-pattern"></div>
+        <div class="section-watermark" style="top: 60px; left: 3%;">侠</div>
+        <div class="container">
+            <div class="section-head">
+                <span class="section-label">— 阁 中 同 袍 —</span>
+                <h2 class="section-title">枫 雪 群 侠</h2>
+                <div class="title-rule"></div>
+                <p class="section-lead">江湖偌大，幸得诸位同行。枫雪阁因每一位同袍而闪耀。</p>
+            </div>
+            <div class="core-members-list">
+                <!-- 卜一水 —— 图右 -->
+                <div class="core-member-row">
+                    <div class="core-member-photo">
+                        <div class="core-photo-frame">
+                            <img src="images/buyishui.jpg" alt="卜一水">
+                            <div class="photo-corners"></div>
+                        </div>
+                    </div>
+                    <div class="core-member-body">
+                        <span class="core-member-badge">核心成员</span>
+                        <h3 class="core-member-name">卜一水</h3>
+                        <p class="core-member-title-sm">先锋战将</p>
+                        <div class="core-member-divider"></div>
+                        <p class="core-member-desc">阁中元老，沉稳可靠。精通奇门遁甲之术，每逢百业战必为先锋，一马当先震慑敌阵。多年来始终坚守枫雪阁前线，每逢硬仗冲锋在前。战场上冷静果敢，战场下待人宽厚，是阁中同袍最为信赖的战友。闲时喜研古籍，于奇门遁甲一道颇有心得，常为阁中战术布局出谋划策。</p>
+                        <div class="core-member-tags">
+                            <span>先锋</span><span>奇门</span><span>沉稳</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 橘子不吐皮 —— 图左 -->
+                <div class="core-member-row reverse">
+                    <div class="core-member-photo">
+                        <div class="core-photo-frame">
+                            <img src="images/juzi.jpg" alt="橘子不吐皮">
+                            <div class="photo-corners"></div>
+                        </div>
+                    </div>
+                    <div class="core-member-body">
+                        <span class="core-member-badge">核心成员</span>
+                        <h3 class="core-member-name">橘子不吐皮</h3>
+                        <p class="core-member-title-sm">神箭策士</p>
+                        <div class="core-member-divider"></div>
+                        <p class="core-member-desc">阁中开心果，气氛担当。擅长远程策应，箭无虚发。有他在的地方，必有欢声笑语。战场上以精准的远程支援著称，无论何种困境总能找到破局之策。闲时风趣健谈，是活跃百业气氛的灵魂人物，也是新成员融入枫雪阁的最佳引路人。</p>
+                        <div class="core-member-tags">
+                            <span>神箭</span><span>策应</span><span>活跃</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 一眼万年 —— 图右 -->
+                <div class="core-member-row">
+                    <div class="core-member-photo">
+                        <div class="core-photo-frame">
+                            <img src="images/yiyanwannian.jpg" alt="一眼万年">
+                            <div class="photo-corners"></div>
+                        </div>
+                    </div>
+                    <div class="core-member-body">
+                        <span class="core-member-badge">核心成员</span>
+                        <h3 class="core-member-name">一眼万年</h3>
+                        <p class="core-member-title-sm">战术军师</p>
+                        <div class="core-member-divider"></div>
+                        <p class="core-member-desc">才情出众的战术军师，运筹帷幄之中，决胜千里之外。对游戏机制钻研极深，各类副本、BOSS机制了然于胸，常为阁中同袍指点迷津。为人谦逊温和，从不居功自傲。每一场百业战前，必做足功课，其精心准备的战术方案已成为枫雪阁致胜法宝。</p>
+                        <div class="core-member-tags">
+                            <span>军师</span><span>钻研</span><span>谦和</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 戏言贤 —— 图左 -->
+                <div class="core-member-row reverse">
+                    <div class="core-member-photo">
+                        <div class="core-photo-frame">
+                            <img src="images/xiyanxian.jpg" alt="戏言贤">
+                            <div class="photo-corners"></div>
+                        </div>
+                    </div>
+                    <div class="core-member-body">
+                        <span class="core-member-badge">核心成员</span>
+                        <h3 class="core-member-name">戏言贤</h3>
+                        <p class="core-member-title-sm">雅士琴心</p>
+                        <div class="core-member-divider"></div>
+                        <p class="core-member-desc">文雅从容的江湖雅士，好诗词、擅琴艺。虽言辞不多，但每次出手必是点睛之笔。于百业之中独树一帜，以精妙的操作与独到的大局观著称。不争不抢，却总能在关键时刻以一击定乾坤。闲时抚琴吟诗，其风雅气度感染着枫雪阁每一位同袍。</p>
+                        <div class="core-member-tags">
+                            <span>雅士</span><span>精妙</span><span>大局</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 须倪左 —— 图右 -->
+                <div class="core-member-row">
+                    <div class="core-member-photo">
+                        <div class="core-photo-frame">
+                            <img src="images/xunizuo.jpg" alt="须倪左">
+                            <div class="photo-corners"></div>
+                        </div>
+                    </div>
+                    <div class="core-member-body">
+                        <span class="core-member-badge">核心成员</span>
+                        <h3 class="core-member-name">须倪左</h3>
+                        <p class="core-member-title-sm">孤刀浪客</p>
+                        <div class="core-member-divider"></div>
+                        <p class="core-member-desc">独来独往的江湖浪客，身法诡谲、刀法凌厉。虽外表冷峻，却是外冷内热之人。危难之际从不缺席，总在最关键的时刻出现在最需要的位置。不爱言语，以行动说话，是枫雪阁最为可靠的底牌之一。那把孤刀之下，藏着对百业同袍最深的守护之情。</p>
+                        <div class="core-member-tags">
+                            <span>孤刀</span><span>凌厉</span><span>守护</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 百业名录 ===== -->
+    <section class="roster section" id="roster">
+        <div class="section-watermark" style="bottom: 0; right: 3%;">众</div>
+        <div class="container">
+            <div class="section-head">
+                <span class="section-label">— 百 业 名 录 —</span>
+                <h2 class="section-title">江 湖 同 袍</h2>
+                <div class="title-rule"></div>
+                <p class="section-lead">八十余位侠客，共聚枫雪旗下。每一个名字，都是江湖中闪耀的星辰。</p>
+            </div>
+            <div class="roster-grid">
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#4a2c2a,#6b3a3a);"><span>卜</span></div><span class="roster-name">卜一水</span><span class="roster-badge">核心</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#3a2a4a,#5a3a6a);"><span>橘</span></div><span class="roster-name">橘子不吐皮</span><span class="roster-badge">核心</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#2a3a4a,#3a5a6a);"><span>眼</span></div><span class="roster-name">一眼万年</span><span class="roster-badge">核心</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#2a4a3a,#3a6a5a);"><span>戏</span></div><span class="roster-name">戏言贤</span><span class="roster-badge">核心</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#4a3a2a,#6a5a3a);"><span>须</span></div><span class="roster-name">须倪左</span><span class="roster-badge">核心</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#3a3a5a,#5a5a7a);"><span>云</span></div><span class="roster-name">云中鹤</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#5a3a3a,#7a5a5a);"><span>月</span></div><span class="roster-name">月下独酌</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#3a5a3a,#5a7a5a);"><span>剑</span></div><span class="roster-name">剑过无声</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#4a2a4a,#6a3a6a);"><span>墨</span></div><span class="roster-name">墨染青衣</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#2a4a5a,#3a6a7a);"><span>风</span></div><span class="roster-name">风行百里</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#4a4a3a,#6a6a5a);"><span>霜</span></div><span class="roster-name">霜寒十四州</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#5a4a2a,#7a6a3a);"><span>竹</span></div><span class="roster-name">竹林听雨</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#2a5a5a,#3a7a7a);"><span>江</span></div><span class="roster-name">江湖故人</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#5a2a4a,#7a3a6a);"><span>花</span></div><span class="roster-name">花间一壶酒</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#3a4a5a,#5a6a7a);"><span>雪</span></div><span class="roster-name">雪落无声</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#4a5a2a,#6a7a3a);"><span>夜</span></div><span class="roster-name">夜雨寄北</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#5a2a2a,#7a3a3a);"><span>龙</span></div><span class="roster-name">龙城飞将</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#2a2a5a,#3a3a7a);"><span>星</span></div><span class="roster-name">星河万里</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#3a5a4a,#5a7a6a);"><span>柳</span></div><span class="roster-name">柳岸残月</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#5a3a5a,#7a5a7a);"><span>燕</span></div><span class="roster-name">燕归来</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#2a3a2a,#3a5a3a);"><span>青</span></div><span class="roster-name">青衫湿</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#4a2a3a,#6a3a5a);"><span>暮</span></div><span class="roster-name">暮云春树</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#3a2a5a,#5a3a7a);"><span>孤</span></div><span class="roster-name">孤舟蓑笠</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#5a4a4a,#7a6a6a);"><span>寒</span></div><span class="roster-name">寒江雪</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#3a3a4a,#5a5a6a);"><span>烟</span></div><span class="roster-name">烟雨平生</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#4a3a4a,#6a5a6a);"><span>琴</span></div><span class="roster-name">琴心剑胆</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#2a4a2a,#3a6a3a);"><span>酒</span></div><span class="roster-name">酒醒何处</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#5a5a2a,#7a7a3a);"><span>铁</span></div><span class="roster-name">铁马冰河</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#3a2a3a,#5a3a5a);"><span>落</span></div><span class="roster-name">落霞孤鹜</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#4a4a5a,#6a6a7a);"><span>沧</span></div><span class="roster-name">沧海一笑</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#2a5a3a,#3a7a5a);"><span>凌</span></div><span class="roster-name">凌云志</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#5a2a5a,#7a3a7a);"><span>归</span></div><span class="roster-name">归去来兮</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#3a5a2a,#5a7a3a);"><span>影</span></div><span class="roster-name">影随风动</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#4a2a5a,#6a3a7a);"><span>棋</span></div><span class="roster-name">棋逢对手</span></div>
+                <div class="roster-item"><div class="roster-avatar" style="background:linear-gradient(135deg,#2a4a4a,#3a6a6a);"><span>笛</span></div><span class="roster-name">笛声何处</span></div>
+                <div class="roster-item roster-item-add">
+                    <a href="#join" class="roster-avatar add"><span>+</span></a>
+                    <span class="roster-name">加入我们</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 段间分隔 -->
+    <div class="section-divider">
+        <div class="divider-ornament">
+            <span class="divider-line"></span>
+            <span class="divider-diamond">◇</span>
+            <span class="divider-line"></span>
+        </div>
+    </div>
+
+    <!-- ===== 江湖记事 ===== -->
+    <section class="timeline section" id="timeline">
+        <div class="container">
+            <div class="section-head">
+                <span class="section-label">— 江 湖 记 事 —</span>
+                <h2 class="section-title">枫 雪 历 程</h2>
+                <div class="title-rule"></div>
+                <p class="section-lead">从创立至今，每一步都值得铭记。</p>
+            </div>
+            <div class="timeline-list">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="timeline-date">2025 年夏</span>
+                        <h4>枫雪阁创立</h4>
+                        <p>社长步苍与副社江珞妍携手，在燕云江湖中立下百业。取「枫」之热烈、「雪」之纯粹，枫雪阁自此扬帆。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="timeline-date">2025 年秋</span>
+                        <h4>初露锋芒</h4>
+                        <p>首次参与百业争锋，阁中同袍齐心协力，以黑马之姿闯入前列，开始被江湖所认知。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="timeline-date">2026 年初</span>
+                        <h4>群侠汇聚 · 突破八十</h4>
+                        <p>新的一年，枫雪阁迎来爆发式增长，阁中同袍人数突破八十，来自五湖四海的侠客汇聚于此。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="timeline-date">2026 年春</span>
+                        <h4>声名鹊起</h4>
+                        <p>枫雪阁在百业联赛中表现抢眼，默契的配合与独特的战术风格让「枫雪」名号响彻一方。</p>
+                    </div>
+                </div>
+                <div class="timeline-item future">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="timeline-date">未来可期</span>
+                        <h4>待君共谱</h4>
+                        <p>枫雪阁的故事仍在继续，下一个篇章期待你的加入，一同书写更精彩的江湖传奇。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 百业合影 ===== -->
+    <section class="gallery section" id="gallery">
+        <div class="container">
+            <div class="section-head">
+                <span class="section-label">— 百 业 合 影 —</span>
+                <h2 class="section-title">枫 雪 留 影</h2>
+                <div class="title-rule"></div>
+                <p class="section-lead">每一张合影，都是枫雪阁同袍并肩江湖的见证。</p>
+            </div>
+            <div class="gallery-grid-new">
+                <!-- 主图 -->
+                <div class="gallery-main">
+                    <div class="gallery-main-frame">
+                        <img src="gallery/e2b08d52ed4456f96ef89db5f76b5d5.png" alt="枫雪阁合影">
+                    </div>
+                    <div class="gallery-main-caption">
+                        <span class="caption-title">枫雪阁 · 群侠聚义</span>
+                        <span class="caption-sub">江湖路远，幸与君同</span>
+                    </div>
+                </div>
+                <!-- 其他合影 -->
+                <div class="gallery-row">
+                    <div class="gallery-frame">
+                        <img src="gallery/e42749d4949e8020e3df782cf36dcfb.png" alt="枫雪阁合影" loading="lazy">
+                        <div class="frame-caption">同游山河</div>
+                    </div>
+                    <div class="gallery-frame">
+                        <img src="gallery/9aba0043f3995bd9d0315d64e037108.png" alt="枫雪阁合影" loading="lazy">
+                        <div class="frame-caption">并肩作战</div>
+                    </div>
+                    <div class="gallery-frame">
+                        <img src="gallery/b4042ae29301e684d17f0b05c098d25.png" alt="枫雪阁合影" loading="lazy">
+                        <div class="frame-caption">把酒言欢</div>
+                    </div>
+                    <div class="gallery-frame">
+                        <img src="gallery/2b4a6b785a56c9b46db24455e9e0956.jpg" alt="枫雪阁合影" loading="lazy">
+                        <div class="frame-caption">共赴江湖</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 入阁 ===== -->
+    <section class="join section" id="join">
+        <div class="join-bg-ornament"></div>
+        <div class="container">
+            <div class="section-head">
+                <span class="section-label">— 入 阁 —</span>
+                <h2 class="section-title">与 君 同 游</h2>
+                <div class="title-rule"></div>
+                <p class="section-lead">枫雪阁之门，为每一位心怀江湖的侠客敞开。</p>
+            </div>
+            <div class="join-layout">
+                <div class="join-card">
+                    <div class="join-card-inner">
+                        <div class="seal-top">
+                            <svg viewBox="0 0 60 60" width="60" height="60">
+                                <circle cx="30" cy="30" r="28" fill="none" stroke="#C9A96E" stroke-width="1"/>
+                                <circle cx="30" cy="30" r="24" fill="none" stroke="#C9A96E" stroke-width="0.5"/>
+                                <text x="30" y="24" text-anchor="middle" fill="#C9A96E" font-size="8" font-family="serif">枫雪阁</text>
+                                <text x="30" y="38" text-anchor="middle" fill="#C9A96E" font-size="6" font-family="serif">百业·燕云</text>
+                            </svg>
+                        </div>
+                        <h3>入阁须知</h3>
+                        <ul class="join-rules">
+                            <li><span class="rule-icon">壹</span> 心向江湖，乐在其中</li>
+                            <li><span class="rule-icon">贰</span> 与人为善，以礼相待</li>
+                            <li><span class="rule-icon">叁</span> 积极参与百业活动</li>
+                            <li><span class="rule-icon">肆</span> 护阁同心，荣辱与共</li>
+                        </ul>
+                        <div class="join-qr">
+                            <div class="qr-placeholder">
+                                <svg viewBox="0 0 100 100" width="100" height="100">
+                                    <!-- 简易二维码装饰 -->
+                                    <rect x="10" y="10" width="30" height="30" fill="none" stroke="#C9A96E" stroke-width="1.5"/>
+                                    <rect x="15" y="15" width="8" height="8" fill="#C9A96E"/>
+                                    <rect x="28" y="15" width="8" height="8" fill="#C9A96E"/>
+                                    <rect x="15" y="28" width="8" height="8" fill="#C9A96E"/>
+                                    <rect x="60" y="10" width="30" height="30" fill="none" stroke="#C9A96E" stroke-width="1.5"/>
+                                    <rect x="65" y="15" width="8" height="8" fill="#C9A96E"/>
+                                    <rect x="78" y="15" width="8" height="8" fill="#C9A96E"/>
+                                    <rect x="65" y="28" width="8" height="8" fill="#C9A96E"/>
+                                    <rect x="10" y="60" width="30" height="30" fill="none" stroke="#C9A96E" stroke-width="1.5"/>
+                                    <rect x="15" y="65" width="8" height="8" fill="#C9A96E"/>
+                                    <rect x="28" y="65" width="8" height="8" fill="#C9A96E"/>
+                                    <rect x="15" y="78" width="8" height="8" fill="#C9A96E"/>
+                                    <rect x="40" y="40" width="20" height="20" fill="none" stroke="#C9A96E" stroke-width="1"/>
+                                    <circle cx="50" cy="50" r="5" fill="#C9A96E"/>
+                                    <line x1="40" y1="43" x2="40" y2="57" stroke="#C9A96E" stroke-width="1"/>
+                                    <line x1="60" y1="43" x2="60" y2="57" stroke="#C9A96E" stroke-width="1"/>
+                                    <line x1="43" y1="40" x2="57" y2="40" stroke="#C9A96E" stroke-width="1"/>
+                                    <line x1="43" y1="60" x2="57" y2="60" stroke="#C9A96E" stroke-width="1"/>
+                                    <rect x="60" y="60" width="30" height="30" fill="none" stroke="#C9A96E" stroke-width="1.5"/>
+                                    <rect x="65" y="65" width="8" height="8" fill="#C9A96E"/>
+                                    <rect x="78" y="65" width="8" height="8" fill="#C9A96E"/>
+                                    <rect x="65" y="78" width="8" height="8" fill="#C9A96E"/>
+                                    <rect x="78" y="78" width="8" height="8" fill="#C9A96E"/>
+                                </svg>
+                            </div>
+                            <span>扫码联系阁主</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="join-card primary">
+                    <div class="join-card-inner">
+                        <h3>申请入阁</h3>
+                        <form class="join-form" id="joinForm">
+                            <div class="field">
+                                <label>侠客名号</label>
+                                <input type="text" placeholder="游戏内角色名" required>
+                            </div>
+                            <div class="field">
+                                <label>联系方式</label>
+                                <input type="text" placeholder="微信号 / QQ号" required>
+                            </div>
+                            <div class="field">
+                                <label>门派流派</label>
+                                <select required>
+                                    <option value="" disabled selected>请选择</option>
+                                    <option>无名</option>
+                                    <option>九流门</option>
+                                    <option>天泉</option>
+                                    <option>梨园</option>
+                                    <option>孤云</option>
+                                    <option>三更天</option>
+                                    <option>文津馆</option>
+                                    <option>其他</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label>江湖寄语</label>
+                                <textarea placeholder="说点什么吧…" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn-gold btn-block">
+                                <span>递 交 名 帖</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 页脚 ===== -->
+    <footer class="footer">
+        <div class="footer-ornament-top">
+            <svg viewBox="0 0 1200 30" preserveAspectRatio="none">
+                <path d="M0 15 L200 0 L400 15 L600 0 L800 15 L1000 0 L1200 15 L1200 30 L0 30 Z" fill="currentColor"/>
+            </svg>
+        </div>
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <div class="brand-logo footer-logo">
+                            <svg viewBox="0 0 48 48" class="logo-svg">
+                                <path d="M24 4 L28 16 L40 14 L32 22 L38 34 L24 26 L10 34 L16 22 L8 14 L20 16 Z"
+                                      fill="none" stroke="#C9A96E" stroke-width="1.5" stroke-linejoin="round"/>
+                                <circle cx="24" cy="18" r="2" fill="#C9A96E"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>枫雪阁</h4>
+                            <p>燕云十六声 · 百业</p>
+                        </div>
+                    </div>
+                    <div class="footer-links">
+                        <h5>江湖导航</h5>
+                        <a href="#about">百业简介</a>
+                        <a href="#leaders">掌事</a>
+                        <a href="#members">阁中同袍</a>
+                        <a href="#join">入阁申请</a>
+                    </div>
+                    <div class="footer-links">
+                        <h5>燕云相关</h5>
+                        <a href="https://www.yysls.cn/" target="_blank">燕云官网</a>
+                        <a href="https://www.yysls.cn/" target="_blank">游戏下载</a>
+                        <a href="https://www.yysls.cn/" target="_blank">最新资讯</a>
+                    </div>
+                    <div class="footer-contact">
+                        <h5>联络阁主</h5>
+                        <p>游戏内搜索「枫雪阁」</p>
+                        <p>或联系社长「步苍」</p>
+                        <a href="https://www.yysls.cn/" target="_blank" class="footer-btn">前往燕云官网 ↗</a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>© 2026 枫雪阁 · 燕云十六声百业 | 枫染山河色，雪映故人归</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 音乐播放器 -->
+    <div class="music-player" id="musicPlayer">
+        <button class="music-toggle" id="musicToggle" aria-label="音乐开关">
+            <svg class="music-icon playing" viewBox="0 0 24 24" width="20" height="20">
+                <path d="M9 18V5l12-2v13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="6" cy="18" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="18" cy="16" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            <svg class="music-icon paused" viewBox="0 0 24 24" width="20" height="20">
+                <rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/>
+                <rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/>
+            </svg>
+        </button>
+        <span class="music-hint">枫雪琴韵</span>
+        <audio id="bgMusic" loop preload="none">
+            <source src="music/bgm.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
