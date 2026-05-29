@@ -512,6 +512,139 @@ function setupSoundEffects() {
     });
 }
 
+/* --- 群侠谱筛选 --- */
+function setupHeroFilter() {
+    const grid = document.getElementById('heroesGrid');
+    if (!grid) return;
+
+    const cards = Array.from(grid.querySelectorAll('.hero-card[data-tags]'));
+
+    const groups = {};
+    document.querySelectorAll('.filter-group').forEach(group => {
+        const groupName = group.dataset.group;
+        groups[groupName] = { selected: new Set(), buttons: [], isSingle: true };
+
+        group.querySelectorAll('.filter-btn').forEach(btn => {
+            groups[groupName].buttons.push(btn);
+            btn.addEventListener('click', () => {
+                const value = btn.dataset.value;
+
+                if (value === '') {
+                    groups[groupName].selected.clear();
+                    group.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                } else {
+                    group.querySelector('[data-value=""]').classList.remove('active');
+
+                    if (groups[groupName].isSingle) {
+                        // 单选：点击已选中的取消，点击新的替换
+                        if (groups[groupName].selected.has(value)) {
+                            groups[groupName].selected.clear();
+                            btn.classList.remove('active');
+                            group.querySelector('[data-value=""]').classList.add('active');
+                        } else {
+                            groups[groupName].selected.clear();
+                            group.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                            groups[groupName].selected.add(value);
+                            btn.classList.add('active');
+                        }
+                    }
+                }
+
+                applyAllFilters();
+            });
+        });
+    });
+
+    function applyAllFilters() {
+        // 先判断每个卡片是否匹配
+        const matchStatus = cards.map(card => {
+            const tags = card.dataset.tags.split(',');
+            let match = true;
+
+            for (const [groupName, groupData] of Object.entries(groups)) {
+                if (groupData.selected.size === 0) continue;
+
+                const prefix = groupName === 'school' ? '流派-' :
+                               groupName === 'mode' ? '玩法-' :
+                               groupName === 'role' ? '定位-' : '';
+
+                const groupTags = Array.from(groupData.selected).map(v => prefix + v);
+                if (!groupTags.some(gt => tags.includes(gt))) {
+                    match = false;
+                    break;
+                }
+            }
+            return { card, match };
+        });
+
+        // 按荣誉排序：匹配的排前面，荣誉排最前
+        const hasFilter = Object.values(groups).some(g => g.selected.size > 0);
+        matchStatus.forEach(({ card, match }, i) => {
+            let order = 0;
+            if (hasFilter) {
+                if (match) {
+                    const hasHonor = card.querySelector('.hero-card-honor') &&
+                                     card.querySelector('.hero-card-honor').textContent.trim();
+                    order = hasHonor ? -2 : -1;
+                } else {
+                    order = 1;
+                }
+            }
+            card.style.order = order;
+            card.classList.toggle('dimmed', !match);
+        });
+    }
+}
+
+/* --- 海报弹窗 --- */
+function setupPosters() {
+    document.querySelectorAll('.core-photo-frame[data-poster]').forEach(frame => {
+        frame.style.cursor = 'pointer';
+        frame.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const src = frame.dataset.poster;
+
+            // 创建弹窗
+            const overlay = document.createElement('div');
+            overlay.className = 'poster-overlay';
+
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = '人物海报';
+            // 如果图片加载失败，显示占位
+            img.onerror = () => {
+                img.style.display = 'none';
+                const placeholder = document.createElement('div');
+                placeholder.style.cssText = 'color:var(--gold);font-family:var(--font-display);font-size:2rem;letter-spacing:6px;text-align:center;padding:40px;';
+                placeholder.textContent = '海报即将上线';
+                overlay.appendChild(placeholder);
+            };
+
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'poster-close';
+            closeBtn.innerHTML = '✕';
+
+            overlay.appendChild(img);
+            overlay.appendChild(closeBtn);
+            document.body.appendChild(overlay);
+            document.body.style.overflow = 'hidden';
+
+            const close = () => {
+                overlay.remove();
+                document.body.style.overflow = '';
+            };
+
+            overlay.addEventListener('click', (ev) => {
+                if (ev.target === overlay || ev.target === closeBtn) close();
+            });
+            document.addEventListener('keydown', function esc(e) {
+                if (e.key === 'Escape') { close(); document.removeEventListener('keydown', esc); }
+            });
+        });
+    });
+}
+
 /* --- 音乐控制 --- */
 function setupMusic() {
     const player = document.getElementById('musicPlayer');
@@ -565,6 +698,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setupRosterCarousel();
     setupMusic();
     setupSoundEffects();
+    setupHeroFilter();
+    setupPosters();
 
     // 首屏可见元素直接展示
     setTimeout(revealInitial, 300);
